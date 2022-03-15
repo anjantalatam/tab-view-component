@@ -13,17 +13,21 @@ const Tabs = ({ children }) => {
   return (
     <div className="tabs-wrapper">
       <div className="tabs-container">
-        {children.map((c, index) => (
-          <button
-            key={String(index)}
-            className={activeTabIndex === index ? "selected" : ""}
-            onClick={() => setActiveTabIndex(index)}
-          >
-            {c.props.label}
-          </button>
-        ))}
+        {children.map((c, index) => {
+          return (
+            <button
+              key={String(index)}
+              className={activeTabIndex === index ? "selected" : null}
+              onClick={() => setActiveTabIndex(index)}
+            >
+              {c.props.label}
+            </button>
+          );
+        })}
       </div>
-      {children[activeTabIndex]}
+      {React.cloneElement(children[activeTabIndex], {
+        parent: "tabs",
+      })}
     </div>
   );
 };
